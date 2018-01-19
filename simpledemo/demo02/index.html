@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo2</title>
+    <!-- React核心库 -->
+    <script src="../build/react.js"></script>
+    <!-- 提供DOM相关的功能 -->
+    <script src="../build/react-dom.js"></script>
+    <!-- 将jsx语法转换为javascript语法 -->
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        // jsx的基本语法规则：遇到HTML标签(以<开头)，就用html规则解析
+        // 遇到代码块（以{开头），就用JavaScript规则解析
+        let names = ['关羽','张飞','刘备'];
+        ReactDOM.render(
+            <div>
+                {
+                    names.map((name,index) => {
+                        return <div key={index}>hello,{name}</div>;
+                    })
+                }
+            </div>,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+</html>
