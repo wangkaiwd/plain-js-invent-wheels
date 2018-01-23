@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 使用class定义构造函数
+        class Person {
+            // 定义对象的属性
+            // 传入成员变量，可以给属性初始值或默认值
+            constructor (name,age=25) {
+                this.name = name;
+                this.age = age;
+            };
+            // 定义对象的方法 
+            showName () {
+                return this.name;
+            };
+            showAge () {
+                return this.age;
+            }
+        }    
+
+        let per = new Person('hello',28);
+        // console.log(per.name,per.age);
+
+        // 子类继承父类
+        class Worker extends Person {
+            constructor(name,age,job="砍柴"){
+                // 把原来构造函数的参数传入
+                // 必须调用super方法，相当于call/apply改变子类this的指向
+                // 否则子类得不到this对象
+                super(name,age);
+                this.job = job;
+            };
+            showJob () {
+                return this.job;
+            }
+        }
+
+        let wor = new Worker('ff',75);
+        // console.log(wor.showJob());
+
+        class Students extends Person {
+            constructor(name,age,doing){
+                console.log(this);
+                super(name,age);
+                console.log(this);
+                this.doing = doing;
+            }
+            showDoing () {
+                return this.doing;
+            }
+        }
+        let s = new Students('h',21,'studying');
+        console.log(s.showDoing());
+    </script>
+</body>
+</html>
