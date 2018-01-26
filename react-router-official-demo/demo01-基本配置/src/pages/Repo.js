@@ -1,5 +1,4 @@
-import React from 'react';
-import {Component} from 'react-dom';
+import React, {Component} from 'react';
 
 export default class Reop extends Component {
     constructor() {
@@ -8,7 +7,7 @@ export default class Reop extends Component {
     render() {
         return (
             <h2>
-                About
+                Reop
             </h2>
         )
     }
