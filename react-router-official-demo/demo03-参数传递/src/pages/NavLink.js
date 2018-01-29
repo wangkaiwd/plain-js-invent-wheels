@@ -11,7 +11,4 @@ export default class NavLink extends Component {
             <Link {...this.props} activeClassName="active"></Link>
         );
     }
-    componentWillMount() {
-        console.log(this.props);
-    }
 }

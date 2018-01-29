@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import {Link} from 'react-router';
 
 export default class Repos extends Component {
     constructor() {
@@ -8,10 +8,12 @@ export default class Repos extends Component {
     render() {
         return (
             <div>
-                <h4>{this.props.params}</h4>
+                <p>我是repos</p>
+                <ul>
+                    <li><Link to='/repo/react/react-router'>react-router</Link></li>
+                    <li><Link to='/repo/facebook/react'>React</Link></li>
+                </ul>
             </div>
         )
     }
-
-
 }

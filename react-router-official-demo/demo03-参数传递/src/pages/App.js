@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router';
-import NavLink from '../pages/NavLink'
+import NavLink from '../pages/NavLink';
 
 export default class App extends Component {
     constructor() {
@@ -14,7 +14,7 @@ export default class App extends Component {
                 {this.props.children}
                 <ul role='nav'>
                     <li><NavLink to='/about'>toAbout</NavLink></li>
-                    <li><NavLink to='/repo'>toRepo</NavLink></li>
+                    <li><NavLink to='/repo'>toRepos</NavLink></li>
                 </ul>
             </div>
         );
