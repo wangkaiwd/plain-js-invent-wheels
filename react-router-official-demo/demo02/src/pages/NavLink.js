@@ -8,10 +8,10 @@ export default class NavLink extends Component {
     render() {
         return (
             // 添加激活样式
+            // this.props:this.props
             <Link {...this.props} activeClassName="active"></Link>
         );
     }
     componentWillMount() {
-        console.log(this.props);
     }
 }

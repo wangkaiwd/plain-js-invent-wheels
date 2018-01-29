@@ -1,28 +1,10 @@
-// 1. 引包 react 和 react-dom
-// 2. 定义一个 react 元素
-// 3. 调用 react-dom中 的 render 方法,将2中的元素添加到DOM中
-// import React from 'react'
-// import ReactDOM from 'react-dom'
 
-
-// let msg = '我是中国人，我爱自己的祖国'
-// const element = (
-//   <div>
-//     <input value={msg}/>
-//   </div>
-// )
-// // 使用value给input赋值，默认是只读的，不能修改
-// ReactDOM.render(element, document.querySelector('#box'))
-
-// setTimeout(function () {
-//   msg = '你好吗'
-//   const element = (
-//     <div>
-//       <input value={msg}/>
-//     </div>
-//   )
-//   ReactDOM.render(element, document.querySelector('#box'))
-// }, 3000)
+// 传参步骤
+// 1. 定义父子组件
+// 2. 引入prop-types
+// 3. 定义父组件的传参函数（这里是getChildContext）,将要传递给子组件的参数
+//    作为返回值返回
+// 4. 分别定义父子组件的传参与接受参数的规则(Son.contextTypes和Father.getChildrenTypes)
 
 
 import React from 'react';
@@ -46,7 +28,7 @@ class Son extends React.Component {
   render() {
     return (
       <div>
-        <h1>son,父亲的年龄 {this.props.faAge}</h1>
+        <h1>son,父亲的年龄 {this.context.age}</h1>
         <button onClick={this.handleClick}>给父亲传值</button>
       </div>        
     )
@@ -64,7 +46,7 @@ class Father extends React.Component {
       money: '并没有钱',
       age: 98
     };
-    // this.changeMoney = this.changeMoney.bind(this,newMoney);
+    // this.changeMoney = this.changeMoney.bind(this);
   }
   changeMoney(newMoney) {
     let money = this.state;
