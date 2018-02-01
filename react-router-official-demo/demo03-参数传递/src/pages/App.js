@@ -10,7 +10,7 @@ export default class App extends Component {
         return (
             <div>
                 <h2>路由配置</h2>
-                {/* 可以控制子组件展示的位置 */}
+                {/* 可以控制子组件（路由关系）展示的位置 */}
                 {this.props.children}
                 <ul role='nav'>
                     <li><NavLink to='/about'>toAbout</NavLink></li>

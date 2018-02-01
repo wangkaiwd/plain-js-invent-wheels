@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router';
 
+// 封装导航链接
 export default class NavLink extends Component {
     constructor() {
         super();

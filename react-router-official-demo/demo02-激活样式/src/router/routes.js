@@ -4,8 +4,6 @@ import App from '../pages/App';
 import Repo from '../pages/Apeo';
 import About from '../pages/About';
 import Repos from '../pages/Repos'
-
-
 export default (
     <Route path='/' component={App}>
         <IndexRoute component={Repo}></IndexRoute>

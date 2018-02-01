@@ -6,7 +6,7 @@ import About from '../pages/About';
 import Repos from '../pages/Repos';
 
 
-// 定义路由匹配规则
+// 定义路由匹配规则（只有完全匹配才会加载对应的组件）
 // '/':加载App根组件，由于设置IndexRoute默认加载根组件下的Repo子组件
 // '/about':加载About组件
 // '/repo':加载Repos组件
