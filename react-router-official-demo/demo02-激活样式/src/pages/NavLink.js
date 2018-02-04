@@ -9,7 +9,8 @@ export default class NavLink extends Component {
     render() {
         return (
             // 添加激活样式
-            // this.props:this.props
+            // {...this.props}:将this.props对象里的所有属性和属性值
+            //    都对应写到Link标签中，作为Link的属性
             <Link {...this.props} activeClassName="active"></Link>
         );
     }

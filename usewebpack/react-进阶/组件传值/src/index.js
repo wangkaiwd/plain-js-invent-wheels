@@ -23,7 +23,8 @@ class Son extends React.Component {
   };
   handleClick() {
     this.props.toSon(this.state.money);
-    console.log(this.context);
+    this.context.testFn();
+    // console.log(this.context);
   }
   render() {
     return (
@@ -34,9 +35,12 @@ class Son extends React.Component {
     )
   }
 }
+
+// 这里的function类型为：func
+// 可以去官网查看PropTypes的类型
 Son.contextTypes = {
   age: PropTypes.number,
-  testFn: PropTypes.function
+  testFn: PropTypes.func
 }
 
 class Father extends React.Component {
@@ -71,14 +75,14 @@ class Father extends React.Component {
     return {
       age: 18,
       testFn: () => {
-        this.testFn()
-      }
+        this.testFn();
+      },
     }
   }
 }
 // 限制传递数据的格式
 Father.childContextTypes = {
   age:PropTypes.number,
-  testFn: PropTypes.function
+  testFn: PropTypes.func
 };
 ReactDOM.render(<Father />,document.getElementById('box'));
