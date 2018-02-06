@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- React的核心库 -->
+    <script src='../build/react.js'></script>
+    <!-- 提供与DOM相关的功能 -->
+    <script src='../build/react-dom.js'></script>
+    <!-- JSX语法转为JavaScript语法 -->
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+    <script>
+        // React组件创建方式：
+        // 1. 无状态函数式组件
+        // 组件形式上表现为之带有一个render方法，通过ES6 arrow function创建或者通过普通函数创建
+        // 该组件没有state状态
+        function HelloComponent(props) {
+            return <div> Hello {props.name}</div>
+        } 
+        // 特点：1. 可读性好，减少代码冗余，精简至一个render方法
+        //      2. 组件只能访问输入的props,无法访问组件中的this对象（没有实例化过程）
+        //      3. 组件无法访问生命周期的方法
+        // 官方指出：在大部分react组件中，大部分组件被写成无状态组件，通过简单的组合可以构建成其它组件
+                    // 这种通过简单组件然后合并成一个大应用的设计模式被提倡
+
+        // 2. React.createClass（不推荐）
+        // 3. React.Component（推荐）
+        class Contacts extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+        }
+
+
+        
+    
+    </script>
+</body>
+
+</html>
