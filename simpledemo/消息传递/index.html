@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- React的核心库 -->
+    <script src='../build/react.js'></script>
+    <!-- 提供与DOM相关的功能 -->
+    <script src='../build/react-dom.js'></script>
+    <!-- JSX语法转为JavaScript语法 -->
+    <script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        // 1. 父->子:通过props进行传递
+        // 2. 子->父：父组件将callback作为props的属性传递到子组件
+        //           子组件调用callback向父组件传递数据
+        class Child extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+            render() {  
+                return (
+                    <div>
+                        <input onChange={this.props.change} />
+                    </div>
+                );
+            }
+        }
+
+        class Child1 extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+            render() {
+                return (
+                    <div>
+                        <h1>{this.props.value}</h1>
+                    </div>
+                )
+            }
+        }
+
+        class Parent extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    value: ''
+                }
+                this.handleChange = this.handleChange.bind(this);
+            }
+            handleChange(e) {
+                // 这里面的e.target.value是通过子组件传来的
+                this.setState({value: e.target.value});
+            }
+            render() {
+                return (
+                    <div>
+                        <Child1 value={this.state.value} />
+                        <Child change={this.handleChange} />
+                    </div>
+                    
+                );
+            }
+        }
+        // 3. 兄弟组件：a.将需要传递的数据挂载到公共的父组件中，通过props传递给2个子组件
+        //             如果某个组件需要改变数据并通知其兄弟组件，则通过父组件传递callback给子组件来实现
+        //             b.利用观察者模式（发布-订阅模式实现组件之间消息的传递），利用eventProxy模块是实现消息传递
+
+        ReactDOM.render(<Parent />,document.getElementById('app'))
+
+    </script>
+</body>
+
+</html>

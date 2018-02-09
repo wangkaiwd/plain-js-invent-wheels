@@ -36,11 +36,10 @@
         // componentWillUnmount
 
         // setState:
-        //      为了提高性能React将setState设置为异步操作函数
-        //      在调用setState后并不能立即读取到更新的this.state
-        //      1.允许传入第二个参数：回调函数，回调函数会保证应用被更新后触发
-        //      2.传入状态计算函数来作为第一个参数（若之后的状态依赖于之前的状态）
-
+            //  为了提高性能React将setState设置为异步操作函数
+            //  在调用setState后并不能立即读取到更新的this.state
+            //  1.允许传入第二个参数：回调函数，回调函数会保证应用被更新后触发
+            //  2.传入状态计算函数来作为第一个参数（若之后的状态依赖于之前的状态）
 
         // constructor
         // 构造器constructor()首先被调用 然后通过super改变this指向
