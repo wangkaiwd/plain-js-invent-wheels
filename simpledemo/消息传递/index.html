@@ -71,9 +71,7 @@
         // 3. 兄弟组件：a.将需要传递的数据挂载到公共的父组件中，通过props传递给2个子组件
         //             如果某个组件需要改变数据并通知其兄弟组件，则通过父组件传递callback给子组件来实现
         //             b.利用观察者模式（发布-订阅模式实现组件之间消息的传递），利用eventProxy模块是实现消息传递
-
         ReactDOM.render(<Parent />,document.getElementById('app'))
-
     </script>
 </body>
 
