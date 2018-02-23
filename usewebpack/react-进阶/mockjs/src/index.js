@@ -4,8 +4,9 @@ import qs from 'qs';
 
 // console.log(qs.stringify({a:'b'}));
 
-
-// 参数，请求地址，请求方式，请求返回数据模板
+// mockjs进行数据的模拟
+// mockjs是对请求的拦截，所以并不能在浏览器network处进行响应与请求的调试
+// 参数：请求地址，请求方式，请求返回数据模板
 Mock.mock('http://www.myshop.com/api/123', 'post', {
     "list|5-10": [
         {
@@ -14,29 +15,32 @@ Mock.mock('http://www.myshop.com/api/123', 'post', {
         }
     ],
 
-    "goods|1-10": [
+    "goods|4-10": [
         {
             "id|+1": 1,
-            "name": "@cname",
+            "name": "@ctitle(3)",
         }
     ]
-
-
 });
+// 通过为函数的参数来获取前端传递的参数，data为一个对象，data.body为前端传递的参数
+// Mock.mock('http://www.myshop.com/api/123', 'post', function (data) {
+//     qs.stringify(data.body);
+//     console.log(data);
+// });
 // axios发送ajax请求成功后返回的内容
-
-const res = {
-    // 服务器返回的数据
-    data: {},
-    // HTTP状态码
-    status: 200,
-    // 服务器返回的消息
-    statusText: 'OK',
-    // 返回头
-    headers: {},
-    // 返回我们的配置
-    config: {}
-}
+// console.log(res);
+// const res = {
+//     // 服务器返回的数据
+//     data: {},
+//     // HTTP状态码
+//     status: 200,
+//     // 服务器返回的消息
+//     statusText: 'OK',
+//     // 返回头
+//     headers: {},
+//     // 返回我们的配置
+//     config: {}
+// }
 
 
 // 统一config配置
@@ -52,30 +56,40 @@ axios.defaults.headers.post['Content-Type'] = "'application/x-www-form-urlencode
 
 // interceptor：发起大量请求时，通过拦截器对请求和响应做统一处理
 // 配置拦截器
-// 队请求做出统一处理
+// 对请求做出统一处理
 axios.interceptors.request.use(
     config => {
         // post传参序列化
         if (config.method === 'post') {
+            // 讲json格式的字符串进行key=value,key1=value2...的格式（序列化）
             config.data = qs.stringify(config.data);
             console.log(config.data);
         }
-        // 可以在发请求之前
+        // 可以在发请求之前对请求进行配置
         return config;
     },
     err => {
         alert('错误的传参');
-        return Promise.reject(error);
+        return Promise.reject(err);
     }
 )
 
-
-axios.post('/123', {}).then(
+// 对响应做出统一处理
+axios.interceptors.response.use(
     res => {
-        if (res.status == 200) {
-            // console.log(res);
-            const info = qs.parse(res);
-            console.log(info);
+        // 这里的200是字符串
+        if (res.status != '200') {
+            return alert(res.statusText);
         }
+        return res;
+    },
+    err => {
+        alert('网络异常');
+        return Promise.reject(err);
+    }
+)
+axios.post('/123', { name: '小明', age: 18 }).then(
+    ({ data }) => {
+        console.log(data);
     }
 )
