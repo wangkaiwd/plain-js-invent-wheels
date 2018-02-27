@@ -10,11 +10,12 @@ class BlackBorderContainer extends Component {
         return (
             <div>
                 <h2>BlackBorderContainer</h2>
-                {/* this.props.children.map((children) => {
-                    <div className="border">{children}</div>
-                }) */}
                 {
-                    this.props.children.map((children,index) => <div key={index} className="border">{children}</div>)
+                    // 将组件嵌套内容循环渲染
+                    this.props.children.map(
+                        // 这里要将显示的内容return
+                        (children,index) => <div key={index} className="border">{children}</div>
+                    )
                 }
             </div>
         )

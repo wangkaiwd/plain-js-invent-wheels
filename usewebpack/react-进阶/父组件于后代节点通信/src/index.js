@@ -4,7 +4,7 @@
 // 2. 引入prop-types
 // 3. 定义父组件的传参函数（这里是getChildContext）,将要传递给子组件的参数
 //    作为返回值返回
-// 4. 分别定义父子组件的传参与接受参数的规则(Son.contextTypes和Father.getChildrenTypes)
+// 4. 分别定义父子组件的传参与接受参数的规则(Grandson.contextTypes和Father.getChildrenTypes)
 
 
 import React from 'react';
@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom';
 // 限制传递内容的数据类型
 import PropTypes from 'prop-types';
 
-class Son extends React.Component {
+class Grandson extends React.Component {
   constructor(){
     super();
     this.state = {
@@ -22,14 +22,14 @@ class Son extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   };
   handleClick() {
-    this.props.toSon(this.state.money);
+    this.props.toGrandson(this.state.money);
     this.context.testFn();
     // console.log(this.context);
   }
   render() {
     return (
       <div>
-        <h1>son,父亲的年龄 {this.context.age}</h1>
+        <h1>Grandson,父亲的年龄 {this.context.age}</h1>
         <button onClick={this.handleClick}>给父亲传值</button>
       </div>        
     )
@@ -38,7 +38,7 @@ class Son extends React.Component {
 
 // 这里的function类型为：func
 // 可以去官网查看PropTypes的类型
-Son.contextTypes = {
+Grandson.contextTypes = {
   age: PropTypes.number,
   testFn: PropTypes.func
 }
@@ -50,11 +50,10 @@ class Father extends React.Component {
       money: '并没有钱',
       age: 98
     };
-    // this.changeMoney = this.changeMoney.bind(this);
+    this.changeMoney = this.changeMoney.bind(this);
   }
   changeMoney(newMoney) {
-    let money = this.state;
-    money = newMoney;
+    const money = newMoney;
     this.setState({
       money: money
     });
@@ -63,7 +62,7 @@ class Father extends React.Component {
     return (
       <div>
         <h1>我是父组件,money:{this.state.money}</h1>
-        <Son faAge={this.state.age}  toSon={(m)=>this.changeMoney(m)}></Son>
+        <Grandson faAge={this.state.age}  toGrandson={this.changeMoney}></Grandson>
       </div>
     );
   }

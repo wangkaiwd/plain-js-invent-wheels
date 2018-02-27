@@ -19,7 +19,7 @@
 <body>
     <div id="app"></div>
     <script type="text/babel">
-    // 利用订阅者模式进行参数的传递，类似于vue的$emit和$on
+        // 利用订阅者模式进行参数的传递，类似于vue的$emit和$on
         const ep = new EventProxy();
         class Child1 extends React.Component {
             constructor() {
@@ -27,7 +27,7 @@
                 this.handleChange = this.handleChange.bind(this);
             }
             handleChange(e) {
-                // console.log(e.target.value);
+                // 通知Child2组件，input的输入内容发生变化，并将输入内容传给Child2组件
                 ep.emit('inpVal',e.target.value)
             }
             render() {
@@ -47,6 +47,7 @@
                 };
             }
             componentWillMount() {
+                // 收到Child1的通知，通过函数接收Child1传来的数据（data）
                 ep.on('inpVal', (data) => {
                     this.setState({
                         msg: data

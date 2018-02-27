@@ -13,15 +13,13 @@ class Dog extends Component {
 
         this.handleParams = this.handleParams.bind(this, 5);
     }
+    // 通过箭头函数绑定事件，事件参数必须进行显式的传递
+    // 如果不进行this指向的处理为undefined
+    // console.log(this);
     handleClick() {
-        // 如果不进行this指向的处理为undefined
-        // console.log(this);
-
         // 通过bind方式绑定事件对象以及更多的参数被隐式的传递
         // 比如event，并不需要进行参数的传递，就可以直接在函数中使用
-
-        // 通过箭头函数绑定事件，事件参数必须进行显式的传递
-        console.log(this, event);
+        console.log(event);
     }
     handleClickExtra() {
         console.log(this);
@@ -46,7 +44,12 @@ class Dog extends Component {
                              2. 通过bind方法改变函数的this指向
                 */}
                 <h1 onClick={this.handleClick}>Dog</h1>
-                <h2 onClick={() => this.handleClickExtra()}>Cat</h2>
+                {/* 行内绑定的缺点：
+                        每次调用的时候都会通过bind来进行this指向改变
+                        在构造函数中绑定只需要一次        
+                */}
+                {/* 传入事件对象 */}
+                <h2 onClick={(e) => this.handleClickExtra(e)}>Cat</h2>
                 {/* 
                     function handleClickExtra() {
                         return this.handleClickExtra();
@@ -60,7 +63,7 @@ class Dog extends Component {
 
 // 使用bind绑定事件时不用加括号的原因：
 // 1. 如果加括号的话会直接执行，并不是在点击的时候触发
-// 2. 这里绑定的是一个函数，并不是一个函数的执行
+// 2. 绑定事件绑定的是一个函数，并不是一个函数的执行
 
 
 render(<Dog />, document.getElementById('box'))
