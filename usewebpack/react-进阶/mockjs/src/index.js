@@ -63,7 +63,8 @@ axios.interceptors.request.use(
         if (config.method === 'post') {
             // 讲json格式的字符串进行key=value,key1=value2...的格式（序列化）
             config.data = qs.stringify(config.data);
-            console.log(config.data);
+            // console.log(config.data);
+            // name=%E5%B0%8F%E6%98%8E&age=18
         }
         // 可以在发请求之前对请求进行配置
         return config;
@@ -77,9 +78,12 @@ axios.interceptors.request.use(
 // 对响应做出统一处理
 axios.interceptors.response.use(
     res => {
-        // 这里的200是字符串
+        // 这里的200是字符串（如果响应状态码不是为200）
         if (res.status != '200') {
-            return alert(res.statusText);
+            // 提示错误信息
+            // return alert(res.data.msg);
+            // 执行请求失败时的回调，支持promise API
+            return Promise.reject(res);
         }
         return res;
     },

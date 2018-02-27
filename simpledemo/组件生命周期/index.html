@@ -39,7 +39,7 @@
             //  为了提高性能React将setState设置为异步操作函数
             //  在调用setState后并不能立即读取到更新的this.state
             //  1.允许传入第二个参数：回调函数，回调函数会保证应用被更新后触发
-            //  2.传入状态计算函数来作为第一个参数（若之后的状态依赖于之前的状态）
+            //  2.传入状态计算函数来作为第一个参数（若之后的状态依赖于之前的状态）  
 
         // constructor
         // 构造器constructor()首先被调用 然后通过super改变this指向
@@ -55,6 +55,10 @@
         class Children extends React.Component {
             constructor(props) {
                 super(props)
+                this.state = {
+                    number : 30,
+                }
+                this.handleClick = this.handleClick.bind(this);
             }
             // componentWillReceiveProps(nextProps) {
             //     // 即使组件的属性并没有发生更改，也会触发，此事需要比较this.props和nextProps
@@ -63,11 +67,20 @@
             //     console.log('--------------------');
             //     console.log(nextProps);
             // }
+            handleClick() {
+                this.setState((prevState,props) => {
+                    console.log(prevState);
+                    console.log(props);
+                    prevState.number++;
+                })
+            }
             render() {
                 return (
                     <div>
                         <h3>I am Children</h3>
                         <p>{this.props.age}</p>
+                        <h2>{this.state.number}</h2>
+                        <button onClick={this.handleClick}>num++</button>
                     </div>
                 )
             }
@@ -82,6 +95,10 @@
                 }
                 this.handleClick = this.handleClick.bind(this);
             }
+            // this.state = {
+            //     age: 18,
+            //     name: '小明',
+            // }
             handleClick() {
                 // this.setState(
                 //     {
@@ -89,15 +106,15 @@
                 //         name: '小红',
                 //     }, 
                 //     () => {
-                //         console.log('-----------setState after-------------------------');
+                //         console.log('--------------------回调函数-------------------------');
                 //         console.log(this.state.age);
                 //         console.log(this.state.name);
                 //     }
                 // )
-                // 先执行后边的代码
-                // console.log('--------------after setState-----------------');
-                // console.log(this.state.age);
-                // console.log(this.state.name);
+                // // 先执行后边的代码
+                // console.log('-----------------直接进行获取值-----------------');
+                // console.log(this.state.age); // 18
+                // console.log(this.state.name); // '小明'
 
                 // 相当于object.assign({},{age:19},{age:19}):会将相同的属性进行合并，并不会每次点击+2
                 // this.setState({age: this.state.age+1});
@@ -106,8 +123,9 @@
                 // 官方推荐写法：(保证数据的同步性，之后的状态要依赖于之前的状态)
                 // 这样更改之后会立即生效
                 this.setState((prevState,props) => {
-                    // prevState:当前的this.state
-                    // console.log(prevState,props);
+                    // prevState:之前的this.state
+                    // props:父组件传来的属性组成的对象
+                    console.log(prevState);
 
                     // 必须要将修改的内容return,否则不会生效
                     return {age: prevState.age+1}

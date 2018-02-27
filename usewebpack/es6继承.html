@@ -25,8 +25,8 @@
             }
         }    
 
-        let per = new Person('hello',28);
-        // console.log(per.name,per.age);
+        const per = new Person('hello',28);
+        // console.log(per.name,per.age); // hello, 28
 
         // 子类继承父类
         class Worker extends Person {
@@ -42,8 +42,8 @@
             }
         }
 
-        let wor = new Worker('ff',75);
-        // console.log(wor.showJob());
+        const wor = new Worker('ff',75);
+        // console.log(wor.showJob()); //砍柴
 
         class Students extends Person {
             constructor(name,age,doing){
