@@ -23,5 +23,37 @@
 //   // 为了不影响全局作用域，我们使用立即执行函数，然后将需要的值进行返回
 //   return { on };
 // })();
+type EventTypes = 'tap' | 'doubleTap' | 'swipe' | 'touchstart' | 'touchend' | 'touchmove';
 
-//
+// @see: https://www.tslang.cn/docs/handbook/advanced-types.html
+// 映射类型： 这里为什么要使用类型别名，而不能使用接口
+type EventMap = {
+  [K in EventTypes]: ((e: Event) => void) []
+}
+class Gesture {
+  dom: HTMLElement;
+  eventMap: EventMap = {
+    tap: [],
+    doubleTap: [],
+    swipe: [],
+    touchstart: [],
+    touchend: [],
+    touchmove: []
+  };
+
+  constructor (selector: string) {
+    this.dom = this.$(selector);
+  }
+
+  $ (selector: string): HTMLElement {
+    const element = document.querySelector<HTMLElement>(selector);
+    if (element) {
+      return element;
+    }
+    throw 'selector of element not exist';
+  }
+
+  on (eventType: string, handler: (e: Event) => void): void {
+
+  }
+}
