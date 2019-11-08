@@ -25,10 +25,12 @@
 // })();
 type EventTypes = 'tap' | 'doubleTap' | 'swipe' | 'touchstart' | 'touchend' | 'touchmove';
 
+type Handler = (e?: Event) => void
+
 // @see: https://www.tslang.cn/docs/handbook/advanced-types.html
 // 映射类型： 这里为什么要使用类型别名，而不能使用接口
 type EventMap = {
-  [K in EventTypes]: ((e: Event) => void) []
+  [K in EventTypes]: Handler []
 }
 class Gesture {
   dom: HTMLElement;
@@ -43,6 +45,7 @@ class Gesture {
 
   constructor (selector: string) {
     this.dom = this.$(selector);
+    this.bind();
   }
 
   $ (selector: string): HTMLElement {
@@ -53,7 +56,36 @@ class Gesture {
     throw 'selector of element not exist';
   }
 
-  on (eventType: string, handler: (e: Event) => void): void {
+  bind (): void {
+    this.dom.addEventListener('touchstart', this.touchStart.bind(this));
+    this.dom.addEventListener('touchend', this.touchEnd.bind(this));
+    this.dom.addEventListener('touchmove', this.touchMove.bind(this));
+  }
 
+  touchStart (e: Event): void {
+    this.emit('touchstart', e);
+  }
+
+  touchEnd (e: Event): void {
+    this.emit('touchend', e);
+  }
+
+  touchMove (e: Event): void {
+    this.emit('touchmove', e);
+  }
+
+  emit (eventType: EventTypes, e?: Event) {
+    this.eventMap[eventType].forEach(handler => {
+      handler(e);
+    });
+  }
+
+  on (eventType: EventTypes, handler: Handler): void {
+    this.eventMap[eventType].push(handler);
   }
 }
+const gesture = new Gesture('.touch');
+
+gesture.on('touchstart', (e) => {
+  console.log(e);
+});
